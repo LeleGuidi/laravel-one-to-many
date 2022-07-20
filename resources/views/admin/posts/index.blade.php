@@ -10,6 +10,7 @@
                     <th scope="col">Titolo</th>
                     <th scope="col">Riassunto</th>
                     <th scope="col">Slug</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Pubblico</th>
                     <th scope="col">Azione</th>
                   </tr>
@@ -21,6 +22,7 @@
                             <td>{{$post['title']}}</td>
                             <td>{{substr($post['content'], 0, 20)}}</td>
                             <td>{{$post['slug']}}</td>
+                            <td>{{$post->category_id}}</td>
                             <td>@if ($post['public'] == 1) Si @else No @endif </td>
                             <td>
                                 <a href="{{route('admin.posts.show', $post->id)}}"><button class="btn btn-primary">Visualizza</button></a>
