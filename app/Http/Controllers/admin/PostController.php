@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -16,6 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
         $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
@@ -27,7 +29,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -42,7 +45,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:150|string',
             'content' => 'required|max:65535|string',
-            'public' => 'sometimes|accepted'
+            'public' => 'sometimes|accepted',
+            'category_id' => 'exists:categories,id|nullable', //l'id che arriva dalla select deve esistere nella tabella categories nella colonna id
         ]);
 
         $data = $request->all();
