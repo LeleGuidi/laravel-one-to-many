@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $newCategory->slug = Str::slug($data['name'], '-');
         $newCategory->save();
 
-        return redirect()->route('admin.categories.show', $categories->id);
+        return redirect()->route('admin.categories.show', $newCategory->id);
     }
 
     /**
@@ -87,14 +87,14 @@ class CategoryController extends Controller
         ]);
 
         $data = $request->all();
-        if( $post->title != $data['title'] ) {
-            $post->slug = $this->getSlug($data['title']);
+        $newCategory = new Category();
+        $newCategory->name = $data['name'];
+        if ($category->name != $data['name']) {
+            $newCategory->slug = Str::slug($data['name'], '-');
         }
-        $post->fill($data);
-        $post->public = isset($data['public']);
-        $post->save();
+        $newCategory->save();
 
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $newCategory->id);
     }
 
     /**
